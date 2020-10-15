@@ -155,6 +155,7 @@ void FeatureTrackingApp::keyDown( KeyEvent event )
         switch(backgroundSubtraction){
             case 0: //if already 0 (frame difference no background subtraction)
                 backgroundSubtraction=1;   //switch  to 1 (frame difference with background subtraction)
+                std::cout<<"bkg"<<std::endl;
                 
                 break;
                 
@@ -186,6 +187,7 @@ void FeatureTrackingApp::update()
     //just what it says -- the meat of the program
     findOpticalFlow();
     frameDifference(mFrameDifference);
+
 
 }
 
@@ -234,7 +236,10 @@ void FeatureTrackingApp::findOpticalFlow()
     
     //set previous frame
     mPrevFrame = curFrame;
-   
+      if(backgroundSubtraction==1 && toggle==1){
+                   mBackgroundSubtract->apply(curFrame, curFrame);
+         //frameDifference(mBackgroundSubtract);
+             }
          
     
 }
